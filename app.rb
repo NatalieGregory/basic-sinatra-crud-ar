@@ -14,21 +14,24 @@ class App < Sinatra::Application
   end
 
   get "/" do
-    erb :homepage
-  end
-
-  post "/" do
-    @database_connection.sql("INSERT INTO users (username) VALUES ('#{params[:username]}');")
-  redirect "/"
-  end
-
-  get "/registration/new" do
-    erb :"registration/new"
+    erb :homepage, :locals => {:username => @username}
   end
 
   post "/registration/" do
+    @database_connection.sql("INSERT INTO users (username, password) VALUES ('#{params[:username]}', '#{params[:password]}')")
+
     flash[:notice] = "Thank you for registering"
 
     redirect "/"
+
   end
+
+  get "/registration/" do
+    erb :new
+  end
+
+  post "/login/" do
+
+  end
+
 end

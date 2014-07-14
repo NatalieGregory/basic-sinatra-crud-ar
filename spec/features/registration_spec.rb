@@ -11,7 +11,7 @@ require "spec_helper.rb"
 
 feature "#registration" do
   scenario "creates account upon submit" do
-    visit "/registration/new"
+    visit "/registration/"
 
       fill_in "username", :with => "pgrunde"
       fill_in "password", :with => "drowssap"
