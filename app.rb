@@ -31,7 +31,20 @@ class App < Sinatra::Application
   end
 
   post "/login/" do
+    all_users =  @database_connection.sql("Select * from users")
+    logged_in_user = all_users.detect do |user_record|
+      user_record["username"] == params[:username] && user_record["password"] == params[:password]
+    end
+
+    if logged_in_user
+      session[:user_id] = logged_in_user["id"]
+    end
+
+    redirect "/"
+
 
   end
+
+
 
 end
