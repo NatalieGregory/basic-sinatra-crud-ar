@@ -15,9 +15,7 @@ def establish_database_tasks
 end
 
 def db_dir
-  File.expand_path(
-    "../../../db", __FILE__
-  )
+  File.expand_path("../../../db", __FILE__)
 end
 
 namespace :db do
