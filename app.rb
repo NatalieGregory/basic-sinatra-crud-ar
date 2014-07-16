@@ -14,6 +14,9 @@ class App < Sinatra::Application
   end
 
   get "/" do
+    if session[:user_id]
+    @username = @database_connection.sql("SELECT username FROM users WHERE id=#{session[:user_id]}").first["username"]
+    end
     erb :homepage, :locals => {:username => @username}
   end
 
@@ -39,9 +42,7 @@ class App < Sinatra::Application
     if logged_in_user
       session[:user_id] = logged_in_user["id"]
     end
-
     redirect "/"
-
 
   end
 
