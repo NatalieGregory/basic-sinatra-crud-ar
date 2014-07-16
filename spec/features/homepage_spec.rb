@@ -16,8 +16,8 @@ feature "registration_form" do
 
 end
 
-feature "Login" do
-  scenario "allows user to login" do
+feature "User Authentication" do
+  before(:each) do
     visit "/"
     click_link "Register"
 
@@ -30,7 +30,8 @@ feature "Login" do
     fill_in "Password", :with => "drowssap"
 
     click_button "Login"
-
+  end
+  scenario "allows user to login" do
     expect(page).to have_content("Welcome, pgrunde!")
 
     expect(page).to have_content("Logout")
@@ -38,7 +39,11 @@ feature "Login" do
     expect(page).to have_no_content("Login")
 
     expect(page).to have_no_content("Register")
-
+  end
+  scenario "allows user to log out" do
+    click_link "Logout"
+    expect(page).to have_content("Register")
+    expect(page).to have_content("Username")
   end
 
 end
