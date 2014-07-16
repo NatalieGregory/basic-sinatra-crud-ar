@@ -1,3 +1,4 @@
+<% if !session[:user_id] %>
 <a href="/registration/">Register</a>
 
 
@@ -13,4 +14,10 @@
 
 </form>
 
+<% else %>
+
 <p>Welcome, <%= username %>!</p>
+
+<a href="/logout/">Logout</a>
+
+<% end %>

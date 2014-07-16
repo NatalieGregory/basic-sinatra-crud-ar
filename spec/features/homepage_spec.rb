@@ -33,5 +33,12 @@ feature "Login" do
 
     expect(page).to have_content("Welcome, pgrunde!")
 
-    end
+    expect(page).to have_content("Logout")
+
+    expect(page).to have_no_content("Login")
+
+    expect(page).to have_no_content("Register")
+
+  end
+
 end
