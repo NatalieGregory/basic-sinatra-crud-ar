@@ -26,6 +26,13 @@ feature "User Authentication" do
 
     click_button "Register"
 
+    click_link "Register"
+
+    fill_in "username", :with => "luke"
+    fill_in "password", :with => "evan"
+
+    click_button "Register"
+
     fill_in "Username", :with => "pgrunde"
     fill_in "Password", :with => "drowssap"
 
@@ -44,6 +51,12 @@ feature "User Authentication" do
     click_link "Logout"
     expect(page).to have_content("Register")
     expect(page).to have_content("Username")
+  end
+
+  scenario "A logged in user can view a list of ALL users on the homepage" do
+
+    expect(page).to have_content("luke")
+
   end
 
 end

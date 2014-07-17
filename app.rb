@@ -16,6 +16,7 @@ class App < Sinatra::Application
   get "/" do
     if session[:user_id]
     @username = @database_connection.sql("SELECT username FROM users WHERE id=#{session[:user_id]}").first["username"]
+    @user_arr = @database_connection.sql("SELECT username FROM users").map { |hsh| hsh["username"]}
     end
     erb :homepage, :locals => {:username => @username}
   end

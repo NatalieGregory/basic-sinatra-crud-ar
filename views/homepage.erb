@@ -18,6 +18,13 @@
 
 <p>Welcome, <%= username %>!</p>
 
+<h3>Other Fish Enthusiasts</h3>
+  <ul>
+    <% @user_arr.each do |username| %>
+    <li><%= username %></li>
+      <% end %>
+  </ul>
+
 <a href="/logout/">Logout</a>
 
 <% end %>
