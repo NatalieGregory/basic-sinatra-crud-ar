@@ -28,10 +28,25 @@ feature "User Authentication" do
 
     click_link "Register"
 
+    fill_in "username", :with => "natalie"
+    fill_in "password", :with => "renee"
+
+    click_button "Register"
+
+    click_link "Register"
+
     fill_in "username", :with => "luke"
     fill_in "password", :with => "evan"
 
     click_button "Register"
+
+    click_link "Register"
+
+    fill_in "username", :with => "tom"
+    fill_in "password", :with => "jerry"
+
+    click_button "Register"
+
 
     fill_in "Username", :with => "pgrunde"
     fill_in "Password", :with => "drowssap"
@@ -53,10 +68,21 @@ feature "User Authentication" do
     expect(page).to have_content("Username")
   end
 
-  scenario "A logged in user can view a list of ALL users on the homepage" do
+  scenario "A logged in user can view and sort a list of ALL users on the homepage" do
 
-    expect(page).to have_content("luke")
+    expect(page).to have_content("natalie luke")
 
+    select "Ascending", from: "sort_menu"
+
+    click_button "Sort"
+
+    expect(page).to have_content("luke natalie pgrunde tom")
+
+    select "Descending", from: "sort_menu"
+
+    click_button "Sort"
+
+    expect(page).to have_content("tom pgrunde natalie luke")
   end
 
 end

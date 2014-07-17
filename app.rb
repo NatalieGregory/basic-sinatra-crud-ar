@@ -16,7 +16,12 @@ class App < Sinatra::Application
   get "/" do
     if session[:user_id]
     @username = @database_connection.sql("SELECT username FROM users WHERE id=#{session[:user_id]}").first["username"]
-    @user_arr = @database_connection.sql("SELECT username FROM users").map { |hsh| hsh["username"]}
+    @user_arr = @database_connection.sql("SELECT username FROM users").map { |hsh| hsh["username"].downcase}
+    end
+    if params[:sort_menu] == "asc"
+      @user_arr.sort!
+    elsif params[:sort_menu] == "desc"
+      @user_arr.sort! { |x,y| y <=> x }
     end
     erb :homepage, :locals => {:username => @username}
   end

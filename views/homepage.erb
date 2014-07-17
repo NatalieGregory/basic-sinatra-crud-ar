@@ -19,11 +19,20 @@
 <p>Welcome, <%= username %>!</p>
 
 <h3>Other Fish Enthusiasts</h3>
+    <form method="get"  action="/">
+      <select name="sort_menu">
+        <option>None</option>
+        <option value="asc">Ascending</option>
+        <option value="desc">Descending</option>
+      </select>
+      <button type="submit">Sort</button>
+    </form>
   <ul>
     <% @user_arr.each do |username| %>
     <li><%= username %></li>
       <% end %>
   </ul>
+
 
 <a href="/logout/">Logout</a>
 
