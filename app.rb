@@ -27,12 +27,22 @@ class App < Sinatra::Application
   end
 
   post "/registration/" do
-    @database_connection.sql("INSERT INTO users (username, password) VALUES ('#{params[:username]}', '#{params[:password]}')")
+    if params[:username] == "" && params[:password] == ""
+      flash[:notice] = "Username and password are required."
+      redirect "/registration/"
+    elsif params[:password] == ""
+      flash[:notice] = "Password is required."
+      redirect "/registration/"
+    elsif params[:username] == ""
+      flash[:notice] = "Username is required."
+      redirect "/registration/"
+    else
+      @database_connection.sql("INSERT INTO users (username, password) VALUES ('#{params[:username]}', '#{params[:password]}')")
 
-    flash[:notice] = "Thank you for registering"
+      flash[:notice] = "Thank you for registering"
 
-    redirect "/"
-
+      redirect "/"
+    end
   end
 
   get "/registration/" do
@@ -40,6 +50,7 @@ class App < Sinatra::Application
   end
 
   post "/login/" do
+
     all_users =  @database_connection.sql("Select * from users")
     logged_in_user = all_users.detect do |user_record|
       user_record["username"] == params[:username] && user_record["password"] == params[:password]
@@ -49,13 +60,11 @@ class App < Sinatra::Application
       session[:user_id] = logged_in_user["id"]
     end
     redirect "/"
-
   end
 
   get "/logout/" do
     session[:user_id] = nil
     redirect "/"
   end
-
 
 end
