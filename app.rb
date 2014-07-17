@@ -37,6 +37,7 @@ class App < Sinatra::Application
       flash[:notice] = "Username is required."
       redirect "/registration/"
     else
+      
       @database_connection.sql("INSERT INTO users (username, password) VALUES ('#{params[:username]}', '#{params[:password]}')")
 
       flash[:notice] = "Thank you for registering"
